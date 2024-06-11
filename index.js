@@ -2,7 +2,8 @@ const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 3000;
 const userRouter = require('./routes/users.js');
-const postRouter = require('./routes/posts.js');
+const itemRouter = require('./routes/items.js');
+const orderRouter = require('./routes/orders.js');
 
 // Body parser middlware
 // we have access to the parsed data within our routes.
@@ -26,49 +27,29 @@ ${time.toLocaleTimeString()}: Received a ${req.method} request to ${req.url}.`
   next();
 });
 
-// Valid API Keys.
-const apiKeys = ['perscholas', 'ps-example', 'hJAsknw-L198sAJD-l3kasx'];
-
-// New middleware to check for API keys!
-// Note that if the key is not verified,
-// we do not call next(); this is the end.
-// This is why we attached the /api/ prefix
-// to our routing at the beginning!
-app.use('/api', function (req, res, next) {
-  var key = req.query['api-key'];
-
-  // Check for the absence of a key.
-  if (!key) {
-    res.status(400);
-    return res.json({ error: 'API Key Required' });
-  }
-
-  // Check for key validity.
-  if (apiKeys.indexOf(key) === -1) {
-    res.status(401);
-    return res.json({ error: 'Invalid API Key' });
-  }
-
-  // Valid key! Store it in req.key for route access.
-  req.key = key;
-  next();
-});
 
 // API Routes
-app.use('/api/users', userRouter);
-app.use('/api/posts', postRouter);
+app.use('/users', userRouter);
+app.use('/items', itemRouter);
+app.use('/orders', orderRouter);
 
 // What shows on the home page
 app.get('/', (req, res) => {
-  res.json({
-    links: [
-      {
-        href: '/api',
-        rel: 'api',
-        type: 'GET',
-      },
-    ],
-  });
+	res.send(`
+		<h1>Library Store</h1>
+		<div><a href="/item/shirt"><img src="" alt=""><h3>Shirt</h3></a>
+		<button type="button">Add to cart</button></div>
+		<div><a href="/item/mug"><img src="" alt=""><h3>Mug</h3></a>
+		<button type="button">Add to cart</button></div>
+		<div><a href="/item/tote"><img src="" alt=""><h3>Tote</h3></a>
+		<button type="button">Add to cart</button></div>
+		<div><a href="/item/pen"><img src="" alt=""><h3>Pen</h3></a>
+		<button type="button">Add to cart</button></div>
+		<div><a href="/item/pencil"><img src="" alt=""><h3>Pencil</h3></a>
+		<button type="button">Add to cart</button></div>
+		<div><a href="/item/bookmark"><img src="" alt=""><h3>Bookmark</h3></a>
+		<button type="button">Add to cart</button></div>
+		`)
 });
 
 // Adding some HATEOAS links.

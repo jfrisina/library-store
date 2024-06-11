@@ -1,24 +1,24 @@
 const express = require('express');
 const router = express.Router();
-const posts = require('../data/posts.js');
+const items = require('../data/items.js');
 
 //GET route to get all post data
 router.get('/', (req, res) => {
   const links = [
     {
-      href: 'posts/:id',
+      href: 'items/:id',
       rel: ':id',
       type: 'GET',
     },
   ];
 
-  res.json({ posts, links });
+  res.json({ items, links });
 });
 
 // GET route to get a post by ID
 router.get('/:id', (req, res, next) => {
   // Using the Array.find method to find the user with the same id as the one sent with the request
-  const post = posts.find((p) => p.id == req.params.id);
+  const item = items.find((p=i) => i.id == req.params.id);
 
   const links = [
     {
@@ -33,7 +33,7 @@ router.get('/:id', (req, res, next) => {
     },
   ];
 
-  if (post) res.json({ post, links });
+  if (item) res.json({ item, links });
   else next();
 });
 
@@ -44,15 +44,15 @@ router.post('/', (req, res) => {
   // the post data that we want to create is inside the req.body
   if (req.body.userId && req.body.title && req.body.content) {
     // If the code gets to this point, we are good to create the post
-    const post = {
-      id: posts.length + 1,
+    const item = {
+      id: items.length + 1,
       userId: req.body.userId,
       title: req.body.title,
       content: req.body.content,
     };
 
-    posts.push(post);
-    res.json(post);
+    items.push(item);
+    res.json(item);
   } else {
     res.status(400).json({ error: 'Insufficient Data' });
   }
@@ -62,18 +62,18 @@ router.post('/', (req, res) => {
 router.patch('/:id', (req, res, next) => {
   // Within the PATCH request route, we allow the client
   // to make changes to an existing user in the database.
-  const post = posts.find((p, i) => {
-    if (p.id == req.params.id) {
+  const item = items.find((item, i) => {
+    if (item.id == req.params.id) {
       for (const key in req.body) {
         // Applying the updates within the req.body to the in-memory post
-        posts[i][key] = req.body[key];
+        items[i][key] = req.body[key];
       }
       return true;
     }
   });
 
-  if (post) {
-    res.json(post);
+  if (item) {
+    res.json(item);
   } else {
     next();
   }
@@ -82,14 +82,14 @@ router.patch('/:id', (req, res, next) => {
 // DELETE Delete a post
 router.delete('/:id', (req, res) => {
   // The DELETE request route simply removes a resource.
-  const post = posts.find((p, i) => {
-    if (p.id == req.params.id) {
-      posts.splice(i, 1);
+  const item = items.find((it, i) => {
+    if (i.id == req.params.id) {
+      items.splice(i, 1);
       return true;
     }
   });
 
-  if (post) res.json(post);
+  if (item) res.json(item);
   else next();
 });
 
