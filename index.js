@@ -77,17 +77,17 @@ app.get('/api', (req, res) => {
       },
       {
         href: 'api/users',
-        rel: 'users',
+        rel: 'new-user',
         type: 'POST',
       },
       {
-        href: 'api/posts',
-        rel: 'posts',
+        href: 'api/item',
+        rel: 'items',
         type: 'GET',
       },
       {
-        href: 'api/posts',
-        rel: 'posts',
+        href: 'api/item',
+        rel: 'new-item',
         type: 'POST',
       },
     ],
