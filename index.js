@@ -1,34 +1,48 @@
+// set a variable to call in express
 const express = require('express');
+// set app to be a function that calls express in
 const app = express();
+// set the port number to the port variable in the environment or port 3000 
 const PORT = process.env.PORT || 3000;
+// call in the users.js file
 const userRouter = require('./routes/users.js');
+// call in the items.js file
 const itemRouter = require('./routes/items.js');
+// call in the orders.js file
 const orderRouter = require('./routes/orders.js');
 
-// Body parser middlware
+// Body parser middleware
 // we have access to the parsed data within our routes.
 // The parsed data will be located in "req.body".
+// call in express to use the middleware function to parse incoming request bodies that are encoded in URL-encoded format (commonly used in HTML forms)
+// parse the URL-encoded data with rich objects and arrays. if set to false, would only parse simpler key-value pairs
+// app.use() sets the code to be used every time there is an incoming reuqest
 app.use(express.urlencoded({ extended: true }));
+// use Express' middleware function to parse incoming bodies in JSON format
 app.use(express.json());
 
-// New logging middleware to help us keep track of
-// requests during testing!
+// New logging middleware to help us keep track of requests during testing!
 app.use((req, res, next) => {
-  const time = new Date();
-
-  console.log(
+	// set time to be the exact date of now
+	const time = new Date();
+	// print it to the console:
+	console.log(
     `-----
 ${time.toLocaleTimeString()}: Received a ${req.method} request to ${req.url}.`
   );
+  // if there are any object keys in the body
   if (Object.keys(req.body).length > 0) {
-    console.log('Containing the data:');
+    // print the statement
+	console.log('Containing the data:');
+	// print the JSON stringed up version of the body
     console.log(`${JSON.stringify(req.body)}`);
   }
+  // move on to the next function
   next();
 });
 
 
-// API Routes
+// Routes
 app.use('/users', userRouter);
 app.use('/items', itemRouter);
 app.use('/orders', orderRouter);
@@ -80,6 +94,7 @@ app.get('/api', (req, res) => {
   });
 });
 
+// New Users page
 app.get('/users/new', (req, res) => {
   res.send(`
       <div> 

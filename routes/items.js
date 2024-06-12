@@ -27,8 +27,10 @@ router.get('/:id', (req, res, next) => {
   // setting a variable to provide the URL and request method
   const links = [
     {
-      href: `/${req.params.id}`,
+      // the url as a link
+      href: `/${req.params.id}`, 
       rel: '',
+      // the request method type
       type: 'PATCH',
     },
     {
