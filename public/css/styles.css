@@ -1,0 +1,49 @@
+/* GENERAL ------------------------------------------------ */
+body {
+	font-family: 'Gill Sans', sans-serif;
+}
+h1 {
+	text-align: center;
+	margin: 1em;
+}
+
+/* CARDS ------------------------------------------------ */
+.items {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-content: space-evenly;
+}
+
+/* MOBILE------------------------------------------------ */
+.card {
+	width: 50%;
+	}
+
+/* TABLET (PORTRAIT) ------------------------------------------------ */
+@media only screen and (min-width: 600px) {
+	.card {
+		width: 33%;
+	}
+}
+
+/* TABLET (LANDSCAPE) ------------------------------------------------ */
+@media only screen and (min-width: 768px) {
+	.card {
+		width: 33%;
+	}
+}
+
+/* DESKTOP ------------------------------------------------ */
+@media only screen and (min-width: 992px) {
+	.card {
+		width: 33%;
+	}
+}
+
+/* TV ------------------------------------------------ */
+@media only screen and (min-width: 1200px) {
+	.card {
+		width: %;
+	}
+}
