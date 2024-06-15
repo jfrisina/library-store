@@ -51,6 +51,7 @@ app.use('/orders', orderRouter);
 app.get('/', (req, res) => {
 	res.send(`
 		<h1>Library Store</h1>
+    <section class="items">
 		<div><a href="/item/shirt"><img src="" alt=""><h3>Shirt</h3></a>
 		<button type="button">Add to cart</button></div>
 		<div><a href="/item/mug"><img src="" alt=""><h3>Mug</h3></a>
@@ -63,6 +64,7 @@ app.get('/', (req, res) => {
 		<button type="button">Add to cart</button></div>
 		<div><a href="/item/bookmark"><img src="" alt=""><h3>Bookmark</h3></a>
 		<button type="button">Add to cart</button></div>
+    </section>
 		`)
 });
 
