@@ -51,57 +51,7 @@ app.use('/orders', orderRouter);
 
 // What shows on the home page
 app.get('/', (req, res) => {
-	res.send(`
-    <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Library Store</title>
-      <link rel="stylesheet" href="/css/styles.css">
-    </head>
-		<h1>Library Store</h1>
-    <section class="items">
-		<div class="card">
-      <a href="/item/shirt"><img src="" alt="">
-        <h3>Shirt</h3>
-        <button type="button">Add to cart</button>
-      </a>
-    </div>
-		<div class="card">
-      <a href="/item/mug">
-        <img src="" alt="">
-        <h3>Mug</h3>
-        <button type="button">Add to cart</button>
-      </a>
-    </div>
-		<div class="card">
-      <a href="/item/tote">
-        <img src="" alt=""><h3>Tote</h3>
-        <button type="button">Add to cart</button>
-      </a>
-    </div>
-		<div class="card">
-      <a href="/item/pen">
-        <img src="" alt="">
-        <h3>Pen</h3>
-        <button type="button">Add to cart</button>
-      </a>
-    </div>
-		<div class="card">
-      <a href="/item/pencil">
-        <img src="" alt="">
-        <h3>Pencil</h3>
-        <button type="button">Add to cart</button>
-      </a>
-    </div>
-		<div class="card">
-      <a href="/item/bookmark">
-      <img src="" alt="">
-      <h3>Bookmark</h3>
-		  <button type="button">Add to cart</button>
-      </a>
-      </div>
-    </section>
-		`)
+	res.sendFile(_dirname + '/public/index.html')
 });
 
 // Adding some HATEOAS links.
