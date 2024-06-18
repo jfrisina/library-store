@@ -11,14 +11,12 @@ const itemRouter = require('./routes/items.js');
 // call in the orders.js file
 const orderRouter = require('./routes/orders.js');
 
-// connect the css
+// connect the css + images + html from the public folder
 app.use(express.static("public"));
 
-// Body parser middleware
-// we have access to the parsed data within our routes.The parsed data will be located in "req.body".
-// call in express to use the middleware function to parse incoming request bodies that are encoded in URL-encoded format (commonly used in HTML forms)
-// parse the URL-encoded data with rich objects and arrays. if set to false, would only parse simpler key-value pairs
-// app.use() sets the code to be used every time there is an incoming reuqest
+// Body parsing middleware
+// Parses data within our routes, which is located in "req.body"
+// Call in express to use the middleware function to parse incoming request bodies that are encoded in URL-encoded format (commonly used in HTML forms). Parses the URL-encoded data with rich objects and arrays. If set to false, would only parse simpler key-value pairs. app.use() sets the code to be used every time there is an incoming request. 
 app.use(express.urlencoded({ extended: true }));
 // use Express' middleware function to parse incoming bodies in JSON format
 app.use(express.json());
@@ -43,16 +41,17 @@ ${time.toLocaleTimeString()}: Received a ${req.method} request to ${req.url}.`
   next();
 });
 
+// What shows on the home page
+app.get('/', (req, res) => {
+	res.sendFile(_dirname + '/public/index.html')
+});
 
 // Routes
 app.use('/users', userRouter);
 app.use('/items', itemRouter);
 app.use('/orders', orderRouter);
 
-// What shows on the home page
-app.get('/', (req, res) => {
-	res.sendFile(_dirname + '/public/index.html')
-});
+
 
 // Adding some HATEOAS links.
 app.get('/api', (req, res) => {
