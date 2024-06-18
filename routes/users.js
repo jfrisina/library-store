@@ -42,10 +42,10 @@ router.post('/', (req, res) => {
   // Within the POST request we will create a new user.
   // The client will pass us data and we'll push that data into our users array.
   // the user data that we want to create is inside the req.body
-  if (req.body.name && req.body.username && req.body.email) {
-    if (users.find((u) => u.username === req.body.username)) {
+  if (req.body.name && req.body.email) {
+    if (users.find((u) => u.email === req.body.email)) {
       // The above returns an object, we found an existing user with the same username. So it's a no go
-      res.json({ error: 'Username Already Taken' });
+      res.json({ error: 'Email already exists within system' });
       return;
     }
 
@@ -53,10 +53,8 @@ router.post('/', (req, res) => {
     const user = {
       id: users.length + 1,
       name: req.body.name,
-      username: req.body.username,
       email: req.body.email,
     };
-
     users.push(user);
     res.json(user);
   } else {

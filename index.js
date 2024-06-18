@@ -13,9 +13,9 @@ const orderRouter = require('./routes/orders.js');
 
 // connect the css
 app.use(express.static("public"));
+
 // Body parser middleware
-// we have access to the parsed data within our routes.
-// The parsed data will be located in "req.body".
+// we have access to the parsed data within our routes.The parsed data will be located in "req.body".
 // call in express to use the middleware function to parse incoming request bodies that are encoded in URL-encoded format (commonly used in HTML forms)
 // parse the URL-encoded data with rich objects and arrays. if set to false, would only parse simpler key-value pairs
 // app.use() sets the code to be used every time there is an incoming reuqest
@@ -89,7 +89,6 @@ app.get('/users/new', (req, res) => {
         <h1>Create a User</h1>
         <form action="/api/users?api-key=perscholas"  method="POST">
           Name: <input type="text" name="name" /> <br />
-          Username: <input type="text" name="username" /> <br />
           Email: <input type="text" name="email" /> <br />
           <input type="submit" value="Create User" />
         </form>
